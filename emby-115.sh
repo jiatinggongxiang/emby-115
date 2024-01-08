@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "你需要一个已部署且可以访问的emby，并安装好docker。"
+echo "你需要一个已部署且可以访问的emby，并安装好docker。脚本开发：SMZDM:sonatasss 大佬。一键脚本by NetSE"
 read -p "如果上述准备工作已做好，请回车开始本脚本；否则请 ctrl+c 退出脚本部署上述内容："
 
 # 1. 创建目录
