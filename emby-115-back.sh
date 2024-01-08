@@ -7,7 +7,7 @@ read -p "如果上述准备工作已做好，请回车开始本脚本："
 mkdir -p /mnt/user/appdata
 
 # 2. 下载配置文件
-wget https://gitee.com/sonata1/code-snippet/raw/master/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/emby115/nginx-emby.tar.gz -O /mnt/user/appdata/nginx-emby.tar.gz
+wget https://raw.githubusercontent.com/jiatinggongxiang/emby-115/main/nginx-emby.tar.gz
 
 # 3. 解压配置文件
 tar -xzvf /mnt/user/appdata/nginx-emby.tar.gz -C /mnt/user/appdata
@@ -35,9 +35,9 @@ sed -i "s|172.17.0.1:8096|172.17.0.1:$emby_original_port|" /mnt/user/appdata/ngi
 # 6. 启用Nginx Docker容器
 read -p "请输入新的Emby端口（回车默认为8097），就是你以后直链的emby端口，以后请访问新端口：" emby_docker_port
 emby_docker_port=${emby_docker_port:-8097}
-docker run --restart=always --name=nginx-emby --hostname=nginx-emby -p $emby_docker_port:80 --net=bridge -v /mnt/user/appdata/nginx-emby:/etc/nginx -v /tmp/dockernginx/cache:/tmp/dockernginx/cache -v /tmp/dockernginx/tmp:/tmp/dockernginx/tmp -d nginx
+docker run --restart=always --name=nginx-emby --hostname=nginx-emby -p $emby_docker_port:80 --net=bridge -v /mnt/user/appdata/nginx-emby:/etc/nginx -v /tmp/dockernginx/cache:/tmp/dockernginx/cache -v /tmp/dockernginx/tmp:/tmp/dockernginx/tmp -d xuenet/emby-nginx
 
 # 7. 启用转换直链的Python脚本Docker容器
-docker run -itd -p 5001:5001 --name=chronos-emby --net=bridge --restart=always -v /mnt/user/appdata/chronos-emby:/chronos -e PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple simsemand/chronos
+docker run -itd -p 5001:5001 --name=chronos-emby --net=bridge --restart=always -v /mnt/user/appdata/chronos-emby:/chronos -e PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple xuenet/emby-chronos
 
 echo "部署已完成，请访问：$(curl -s ipinfo.io/ip):${emby_docker_port}。"
