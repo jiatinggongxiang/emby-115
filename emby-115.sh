@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "你需要一个已部署且可以访问的emby，并安装好docker。"
-read -p "如果上述准备工作已做好，请回车开始本脚本："
+read -p "如果上述准备工作已做好，请回车开始本脚本；否则请 ctrl+c 退出脚本部署上述内容："
 
 # 1. 创建目录
 mkdir -p /mnt/user/appdata
