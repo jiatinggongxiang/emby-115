@@ -1,7 +1,20 @@
 #!/bin/bash
 
-echo "你需要一个已部署且可以访问的emby，并安装好docker。"
+echo "你需要一个已部署且可以访问的emby。"
 read -p "如果上述准备工作已做好，请回车开始本脚本："
+
+# 0 检查是否已安装 Docker
+if command -v docker &> /dev/null; then
+    echo "Docker 已安装"
+else
+    echo "Docker 未安装，正在安装..."
+    curl -sSL https://get.docker.com/ | sh
+
+    # 添加当前用户到 docker 用户组，以避免使用 sudo 运行 docker 命令
+    sudo usermod -aG docker $USER
+
+    echo "Docker 安装完成"
+fi
 
 # 1. 创建目录
 mkdir -p /mnt/user/appdata
