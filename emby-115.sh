@@ -28,9 +28,9 @@ sed -i "s|'/挂载的115远程路径'|'$new_remote_path'|" /mnt/user/appdata/chr
 
 
 # 5. 修改Emby工作端口
-read -p "请输入Emby的原始地址，如果emby是本机安装，且未更改过端口，请直接回车；如果emby非本机安装，请输入（如：http://1.2.3.4:8096）：" emby_original_address
-emby_original_address=${emby_original_address:-"http://172.17.0.1:8096"}
-sed -i "s|http://172.17.0.1:8096|$emby_original_address|" /mnt/user/appdata/nginx-emby/conf.d/default.conf
+read -p "如果emby原工作端口不是8096, 需在此处输入原端口，否则请直接回车：" emby_original_port && \
+emby_original_port=${emby_original_port:-8096} && \
+sed -i "s|172.17.0.1:8096|172.17.0.1:$emby_original_port|" /mnt/user/appdata/nginx-emby/conf.d/default.conf
 
 # 6. 启用Nginx Docker容器
 read -p "请输入新的Emby端口（回车默认为8097），就是你以后直链的emby端口，以后请访问新端口：" emby_docker_port
